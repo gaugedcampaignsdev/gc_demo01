@@ -1,0 +1,6 @@
+<ul>
+  <% if logged_in? && current_user.roles.name != 'agent'%>
+    <li><%= link_to 'Edit Profile', edit_user_path(current_user) %></li>
+    <li><%= link_to 'Change Password', change_password_path %></li>
+  <% end %>
+</ul>

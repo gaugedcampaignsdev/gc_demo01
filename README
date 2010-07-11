@@ -1,0 +1,63 @@
+Project: Gauged Campaigns Web Application
+
+Technologies Used: 
+
+Ruby on Rails, MySQL, Javascript widget, fastercsv gem, Subdomain-fu, restful_authentication, role_requirement, paperclip rails plugins
+
+
+Project Description: 
+
+A web application created for use by a call center soliciting donations. Data collected from donors are saved to a database. A dynamic thermometer/gauge widget displays the current status of a particular campaign in terms of donations collected. Includes interfaces for agents, administrators and regular users with access restrictions depending on the group a user belongs to. Sub-domain functionality is enabled to allow different companies to use the same web app without seeing or accessing other campaigns. 
+
+
+
+
+
+*** This is the pared-down version of the Gauged Campaigns project for CODE REVIEW AND DEMONSTRATION PURPOSES ONLY. All codes and materials are the intellectual properties of the developer and his employer. Please see notes below for the changes on this version. Basic functionality and CRUD are working as well as the logo upload, javascript widget and csv generation.
+
+* Subdomain functionality has been removed on this version. Some minor inconsistencies on some sections of the layout and on some functionalities might be seen since those are subdomain-dependent. 
+ 
+* SQLite3 has been used in place of MySQL. DB is located in db/development.sqlite3
+
+
+There are currently 3 active accounts on the db that comes with this demo.
+
+- super administrators (top level administrator)
+		- only role/group that can set users as a super admin
+		
+- company administrators
+		- add/update/delete campaigns
+		- add agents and assign them to campaigns
+		- generate csv report for campaign
+		
+- agents
+		- add new donations
+
+
+** How-to use: 
+
+Create a new company by signing-up (/signup). The company information is supplied during account creation. Once a new account has been created, a super admin will have to set that account as a company admin. Company administrators can create new campaigns and agents then assign them to different campaigns on their Company Administrator Dashboard. They also have access for exporting all donation information for a particular campaign in a .csv format.
+
+
+
+Access Information:
+
+Administrator account:
+
+username: admin
+password: pass1234
+
+
+Company/Campaign administrator account:
+
+username: jdoe
+password: password
+
+
+Agent account:
+
+username: agent1
+password: p@ssw0rd123
+
+
+

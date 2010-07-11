@@ -1,0 +1,17 @@
+<div id="campaign_list">
+  <%= title "Agent List for #{@campaign.title} Campaign" %>
+  <% form_tag :controller => 'campaigns', :action => 'add_agents' do %>
+    <ul class="style-none vspacer">
+    <% for agent in @agents %>
+      <% if Dialable.find(:all, :conditions => ['user_id = ? and campaign_id = ?', agent.id, @campaign.id]).size == 0 %>
+        <li>
+          <%= check_box_tag "agent_ids[]", agent.id %>
+          <%= agent.fullname %>
+        </li>
+      <% end %>
+    <% end %>
+    </ul>
+    <%= hidden_field_tag :campaign_id, @campaign.id %><br />
+    <%= submit_tag "Apply" %>
+  <% end %>
+</div>

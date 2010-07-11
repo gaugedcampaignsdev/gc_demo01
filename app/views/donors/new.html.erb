@@ -1,0 +1,107 @@
+<div id="frm">
+	<%= title "New Donation" %><br />
+	<%= error_messages_for :donor, :donation, :account %>
+	<span class="required_mark">*</span> Required entries<br><br>
+	<% form_for :donor, :url => donors_url, :html => {:method => :post} do |f| %>
+		<table>
+			<%#= render :partial => 'form', :locals => {:f => f} %>
+			
+
+			<!-- start of form taken from _form.html.erb -->
+			<%= f.hidden_field :user_id, :value => current_user.id %>
+				<% fields_for :donation do |d| %>
+					<tr>
+						<td class="rl_tr"><%= "Donation" %>&nbsp;<span class="required_mark">*</span></td>	
+							<td class="padded_cntrl">					
+								<%= d.select :donation, donation_accounts, :name => "donation_amt" %>&nbsp;
+								<%= d.radio_button :donation, "OTHERS", 
+									:onclick => "Element.show('other_donations');"  %>Other		   
+							</td>
+					</tr>
+					<tr>
+						<td>&nbsp;
+							<%= d.hidden_field :campaign_id, :value => @campaign.id %>
+							<%= d.hidden_field :user_id, :value => current_user.id %>
+						</td>
+						<td class="padded_cntrl"><div id="other_donations" style="display : none;">Other:<%= text_field_tag :donation_amt %></div></td>
+					</tr>
+				<% end %>
+				<tr><td><strong>Donor Information</strong><br><br></td><td>&nbsp;</td></tr>
+				<tr>
+					<td class="rl_tr"><%= "First Name" %>&nbsp;<span class="required_mark">*</span></td>		
+					<td class="padded_cntrl"><%= f.text_field :first_name, :size => 20 %></td>	
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "Last Name" %>&nbsp;<span class="required_mark">*</span></td>
+					<td class="padded_cntrl"><%= f.text_field :last_name, :size => 20 %></td>
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "Email" %>&nbsp;<span class="required_mark">*</span></td>			
+					<td class="padded_cntrl"><%= f.text_field :email, :size => 20 %></td>
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "Business" %></td>			
+					<td class="padded_cntrl"><%= f.text_field :business, :size => 20 %></td>
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "Address" %>&nbsp;<span class="required_mark">*</span></td>			
+					<td class="padded_cntrl"><%= f.text_field :address, :size => 40 %></td>
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "City" %>&nbsp;<span class="required_mark">*</span></td>			
+					<td class="padded_cntrl"><%= f.text_field :city, :size => 15 %></td>
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "State" %>&nbsp;<span class="required_mark">*</span></td>	
+					<td class="padded_cntrl"><%= f.text_field :state, :size => 15 %></td>	
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "Zip Code" %>&nbsp;<span class="required_mark">*</span></td>	
+					<td class="padded_cntrl"><%= f.text_field :zip_code, :size => 10 %></td>
+				</tr>
+				<tr>
+					<td class="rl_tr"><%= "Phone Number" %>&nbsp;<span class="required_mark">*</span></td>			
+					<td class="padded_cntrl"><%= f.text_field :phone, :size => 20 %>&nbsp;(i.e. 123-123-1234)</td>
+				</tr>
+				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+				<tr><td><strong>Account Information</strong><br><br></td><td>&nbsp;</td></tr>
+				<% fields_for :account do |a| %>
+						<tr>
+							<td class="rl_tr"><%= "Credit Card Type" %>&nbsp;<span class="required_mark">*</span></td>			
+							<td class="padded_cntrl"><%= a.select :card_type, card_type %></td>
+						</tr>
+						<tr>
+							<td class="rl_tr"><%= "Name as printed on Card" %>&nbsp;<span class="required_mark">*</span></td>			
+							<td class="padded_cntrl"><%= a.text_field :name, :size => 15 %></td>
+						</tr>
+						<tr>
+							<td class="rl_tr"><%= "Credit Card #" %>&nbsp;<span class="required_mark">*</span></td>			
+							<td class="padded_cntrl"><%= a.text_field :creditcard_no, :size => 20 %>&nbsp;(16 digit, no spaces)</td>
+						</tr>
+						<tr>
+							<td class="rl_tr"><%= "CVV Code" %>&nbsp;<span class="required_mark">*</span></td>			
+							<td class="padded_cntrl"><%= a.text_field :cvv_code, :size => 4 %></td>
+						</tr>
+						<tr>
+							<td class="rl_tr"><%= "Expire" %>&nbsp;<span class="required_mark">*</span></td>			
+							<td class="padded_cntrl"><%= a.text_field :expiration, :size => 20 %></td>
+						</tr>
+					<% end %>
+					<% fields_for :donation do |d| %>
+						<tr>
+							<td class="rl_tr" style="vertical-align:top;"><%= "Note" %></td>			
+							<td class="padded_cntrl"><%= d.text_area :note, :rows => 5, :cols => 30 %></td>
+						</tr>
+					<% end %>
+					<!-- end of form taken from _form.html.erb -->
+			
+			
+			<tr><td colspan="2">&nbsp;</td></tr>
+			<tr>
+        <td class="note">&nbsp;</td>
+        <td class="padded_cntrl"><%= submit_tag "Continue >>" %></td>
+	    </tr>
+		</table>
+	<% end %>
+	<br>
+</div>

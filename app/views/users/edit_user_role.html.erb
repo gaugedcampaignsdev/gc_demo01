@@ -1,0 +1,19 @@
+<div id='frm'>
+	<h3>Edit <%= @user.login %>'s role </h3>
+	
+	<% form_for :user, :url => update_user_role_user_path(@user), :html => { :method => :put } do |f| %>
+		<%= f.hidden_field :id, :value => @user.id %>
+		<p>
+			<%= f.label 'Role' %>	
+			<%= select ('user', 'role_ids', @roles.map {|r| [r.name, r.id]}) %>
+		</p>
+		<p>
+			<%= f.label '&nbsp;' %>
+			<%= check_box_tag 'also_admin', true %> Also Admin?<br />
+		</p>
+		<p>
+			<%= f.label '&nbsp;' %>
+			<%= submit_tag 'Save' %>
+		</p>
+	<% end  %>
+</div>

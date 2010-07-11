@@ -1,0 +1,38 @@
+<div id="campaign_list">
+  <%= title "Company" %>
+
+  <p>
+    <strong>Name:</strong>
+    <%=h @company.name %>
+  </p>
+  <p>
+    <strong>Street:</strong>
+    <%=h @company.address %>
+  </p>
+  <p>
+    <strong>City:</strong>
+    <%=h @company.city %>
+  </p>
+  <p>
+    <strong>State:</strong>
+    <%=h @company.state %>
+  </p>
+  <p>
+    <strong>Zip Code:</strong>
+    <%=h @company.zip_code %>
+  </p>
+  <p>
+    <strong>Status:</strong>
+    <% cs = company_status.invert%>
+    <%= cs[@company.status] %>
+  </p>
+  <p>
+    <% if current_user.has_role?('super')%>
+      <%= link_to "Edit", edit_company_path(@company) %> |
+      <%= link_to "Destroy", @company, :confirm => 'Are you sure?', :method => :delete %> |
+      <%= link_to "View All", companies_path %>
+    <% elsif current_user.has_role?('admin')%>
+      <%= link_to "Edit", edit_company_path(@company) %>
+    <% end %>
+  </p>
+</div>

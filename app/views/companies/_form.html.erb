@@ -1,0 +1,35 @@
+<%= error_messages_for :company %>
+<div style="clear:both;">
+	<div id="frm">
+		<% form_for @company do |f| %>
+	 		<p>
+				<%= f.label :name %>
+				<%= f.text_field :name %>
+			</p>
+	 		<p>
+				<%= f.label :street %>
+				<%= f.text_field :address %>
+			</p>
+	 		<p>
+				<%= f.label :city %>
+				<%= f.text_field :city %>
+			</p>
+	 		<p>
+				<%= f.label :state %>
+				<%= f.text_field :state %>
+			</p>
+	 		<p>
+				<%= f.label :zip_code %>
+				<%= f.text_field :zip_code, :size => "7" %>
+			</p>
+	 		<p>
+				<%= f.label :status %>
+				<%= f.select :status, company_status %>
+			</p>
+			<p>
+				<label>&nbsp;</label>
+				<%= submit_tag 'Submit' %>
+			</p>			
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<%= title "Companies" %>
+<div id="campaign_list">
+  <table class="pretty">
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Status</th>
+      <th>Options</th>
+    </tr>
+    <% for company in @companies %>
+      <tr class="<%= cycle('zs_odd','zs_even')%>">
+        <td><%=link_to company.name, company %></td>
+        <td><%= "#{company.address}, #{company.city} #{company.state} #{company.zip_code}" %></td>
+        <td>
+          <% cs = company_status.invert%>
+          <%= cs[company.status] %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_company_path(company) %> | 
+          <%= link_to "Delete", company, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

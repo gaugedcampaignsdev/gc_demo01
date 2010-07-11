@@ -1,0 +1,59 @@
+<div id="campaign_list">
+	<h3>Campaigns</h3><br>
+  <% if @campaigns.size > 0 %>
+    <table class="pretty">
+      <tr>
+        <th>Title</th>
+        <th>Slogan</th>
+        <th>Target Amount</th>
+        <th>Donation Total</th>
+        <th>Status</th>
+  			<% if current_user %>
+  				<% if current_user.has_role?('admin') %>
+  				  <th>Agents</th>
+  		      <th colspan = "4" style = "text-align:center;">Options</th>
+  		    <% elsif current_user.has_role?('agent')%>
+  		      <th>Donation</th>
+  				<% end %>
+  			<% end %>
+      </tr>
+      <% for campaign in @campaigns %>
+        <tr class="<%= cycle('zs_odd','zs_even')%>">
+          <td><%= link_to campaign.title, view_campaign_path(campaign.title) %></td>
+          <td><%=h campaign.slogan %></td>
+          <td style="text-align:right;"><%=h real_currency(campaign.target_amount)%></td>
+          <td style="text-align:right;"><%= real_currency(campaign.donations.sum(:donation))%></td>
+          <td><%= campaign.campaign_status.name %></td>
+    			<% if current_user %>
+    				<% if current_user.has_role?('admin') %>
+    				  <td width="100px">
+    				    <% for agents in Dialable.find(:all, :conditions => ['campaign_id=?', campaign.id]) %>
+    				      <%= User.find(agents.user_id).login %>
+    				      <br />
+    				    <% end %>
+    				    <%= link_to "Add Agent", list_agents_path(campaign.id) %>
+    				  </td>
+    	        <td width="40px"><%= link_to "Edit", edit_campaign_path(campaign) %></td>
+    	        <td width="40px"><%= link_to "Delete", campaign, :confirm => 'Are you sure?', :method => :delete %></td>
+			        <td width="40px"><%= link_to "CSV Format", :action => 'show', :title => campaign.title, :format => :csv %></td>
+			      <% elsif current_user.has_role?('agent')%>
+			        <td><%= link_to "New Donation", new_donation_path(campaign.title)%></td>
+    				<% end %>
+    			<% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    No campaign associated to you yet.
+    <br />
+    <br />
+	<% end %>
+	<% if current_user %>
+		<% if current_user.has_role?('admin') %>
+		  <p>
+				<%= link_to "New Campaign", new_campaign_path %>
+				<%= link_to "New Agent", new_agent_path %>
+			</p>
+		<% end %>
+	<% end %>
+</div>

@@ -1,0 +1,87 @@
+<%= title "#{@campaign.title}" %>
+
+<div class="seventy aleft font7">
+	<p>
+	  <b>Description:</b>
+	  <%=h @campaign.description %>
+	</p>
+	<p>
+	  <b>Target amount:</b>
+	  <%=h real_currency(@campaign.target_amount) %>
+	</p>
+	<p>
+	  <b>Donated amount:</b>
+	  <%= real_currency(@campaign.donations.sum(:donation)) %>
+	</p>
+	<p>
+	  <b>Status:</b>
+	  <%=h @campaign.campaign_status.name %>
+	</p>
+	<br />
+	<% if @donations.size > 0 %>
+	  <table class="pretty">
+	    <tr>
+  	    <th>Donor Name</th>
+  	    <th width="100px">Amount</th>
+  	    <th width="110px">Date/Time</th>
+	    </tr>
+	    <% for donation in @donations %>
+	      <tr class="<%= cycle('zs_odd', 'zs_even')%>">
+	        <td>
+	          <%= link_to "#{donation.account.donor.first_name} #{donation.account.donor.last_name}", :controller => 'donors', :action => 'show', :id => donation.account.donor.id %>
+          </td>
+	        <td style="text-align:right"><%= real_currency(donation.donation) %></td>
+	        <td><%= donation.created_at.strftime('%H:%M %m/%d/%Y') %></td>
+	      </tr>
+	    <% end %>
+	  </table>
+	  <%= will_paginate @donations %>
+	<% end %>
+	<br />
+	<% if current_user %>
+		<% if current_user.has_role?('admin') %>
+			<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
+		<% end %>
+	<% end %>
+	<%= link_to 'Back', campaigns_path %> |
+	<!-- <a href="#widget_code" rel="facebox">View Widget Code</a> -->
+	<a href="#widget_code" onclick="load_timone('<br /><br /><textarea rows=\'8\' cols=\'45\' WRAP=PHYSICAL><script type=\'text/javascript\' language=\'JavaScript\' src=\'http://<%= SITE_DOMAIN %>/widgets/show.js?campaign_id=<%= @campaign.id %>\'></script></textarea>');">View Widget Code</a>
+
+	<% if @campaign.campaign_status.name == "active" && current_user %>
+		<% if current_user.has_role?('agent') || current_user.has_role?('admin') %>
+		  | <%= link_to 'New Donation', new_donation_path(@campaign.title) %>
+		<% end %>
+	<% end %>
+</div>
+
+<div class="thirty">
+	<div id="stat_holder">
+		<div id="gauge_area">
+			<!-- base margin-top @ 27px max @ 155, add value to base margin-top for the height -->
+			<div id="gauge_lvl">
+				<%= real_currency(@campaign.target_amount) %>
+			</div>
+			<!-- <div id="guage_bar" style="margin-top:<%= 155 - @pxstat %>px; height:<%= @pxstat + 30 %>px;"> -->
+			<div id="guage_bar" style="margin-top:<%= 145 - @pxstat %>px; height:<%= @pxstat + 10 %>px;">
+			</div>
+			<div id="gpercent">
+				<%= number_with_precision(@pxstat, 0) + '%' %>
+			</div>
+			<div id="gstat">
+				<%= 'Sum: ' + real_currency(@level) %>
+			</div>
+		</div>
+		<div id="campaign_id">
+			&nbsp;
+		</div>
+	</div>
+</div>
+
+
+<div id="timone_overlay">
+</div>
+<div id="timone_closer" onclick="hide_timone();">
+[x]
+</div>
+<div id="timone_content">
+</div>

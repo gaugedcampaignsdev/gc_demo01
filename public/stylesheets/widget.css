@@ -1,0 +1,72 @@
+#gauge_area {
+	font-family:Arial, Tahoma, Times, sans-serif;
+	/*background-image: url(../images/gauge_wit_labels.png);*/
+	background-image: url(../images/gauge.png);
+	background-repeat: no-repeat;
+	text-align:center;
+	height:244px;
+	width:92px;
+	float:left;
+}
+
+#gauge_area a:link, #gauge_area a:visited {
+	text-decoration:none;
+	color:#333;
+}
+
+#gauge_are a:hover {
+	color:blue;
+}
+
+#guage_bar {
+	margin-left:36px;
+	background-image: url(../images/gauge_bar.png);
+	width:18px;
+	float:left;
+}
+
+#gauge_lvl {
+	width:92px;
+	height:15px;
+	float:left;
+}
+
+#gpercent {
+	color:white;
+	font-size:0.85em;
+	margin-top:18px;
+	height:15px;
+	width:92px;
+	float:left;
+}
+
+#gstat {
+	font-size:0.7em;
+	margin-top:30px;
+	width:92px;
+	height:15px;
+	float:left;
+}
+
+#donate{
+	width:100%;
+	margin-top:15px;
+	margin-bottom:20px;
+	float:left
+}
+
+#campaign_id {
+	width:100px;
+	padding-top:10px;
+	float:left;
+}
+
+#campaign_id img {
+	border:0;
+}
+
+#stat_holder {
+	padding:5px;
+	width:100px;
+	float:left;
+}

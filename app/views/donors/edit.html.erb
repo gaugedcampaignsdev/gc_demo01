@@ -1,0 +1,16 @@
+<div id="frm">
+	<%= title "Update Donation Entry" %><br />
+	<%= error_messages_for :donor, :donation, :account %>
+	<span class="required_mark">*</span> Required entries<br><br>
+	<% form_for :donor, :url => donor_url(@donor), :html => {:method => :put} do |f| %>
+		<table>
+			<%= render :partial => 'form', :locals => {:f => f} %>
+			<tr><td colspan="2">&nbsp;</td></tr>
+			<tr>
+	        <td class="note">&nbsp;</td>
+	        <td class="padded_cntrl"><%= submit_tag "Continue >>" %></td>
+	    </tr>
+		</table>
+	<% end %>
+	<br>
+</div>

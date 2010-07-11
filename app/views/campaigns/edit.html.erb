@@ -1,0 +1,4 @@
+<div id="campaign_list" style="float:left">
+  <%= title "Edit Campaign | #{link_to "Show", view_campaign_path(@campaign.title)} | #{link_to "View All", campaigns_path}" %>
+</div>
+<%= render :partial => 'form' %>

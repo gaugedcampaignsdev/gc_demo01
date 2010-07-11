@@ -1,0 +1,33 @@
+<% title "Donors" %>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Business</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip Code</th>
+    <th>Phone</th>
+    <th>Campaign</th>
+  </tr>
+  <% for donor in @donors %>
+    <tr>
+      <td><%=h donor.user_id %></td>
+      <td><%=h donor.first_name %></td>
+      <td><%=h donor.last_name %></td>
+      <td><%=h donor.business %></td>
+      <td><%=h donor.city %></td>
+      <td><%=h donor.state %></td>
+      <td><%=h donor.zip_code %></td>
+      <td><%=h donor.phone %></td>
+      <td><%=h donor.campaign_id %></td>
+      <td><%= link_to "Show", donor %></td>
+      <td><%= link_to "Edit", edit_donor_path(donor) %></td>
+      <td><%= link_to "Destroy", donor, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Donor", new_donor_path %></p>

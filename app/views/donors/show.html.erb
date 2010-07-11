@@ -1,0 +1,31 @@
+<div id="frm">
+  <%= title "Donation Information" %>
+  <p>
+    <strong>Donor Name:</strong>
+    <%= "#{@donor.first_name} #{@donor.last_name}" %>
+  </p>
+  <p>
+    <strong>Business:</strong>
+    <%=h @donor.business %>
+  </p>
+  <p>
+    <strong>Address:</strong>
+    <%="#{@donor.address} #{@donor.city}, #{@donor.state} #{@donor.zip_code}"  %>
+  </p>
+  <p>
+    <strong>Phone:</strong>
+    <%=h @donor.phone %>
+  </p>
+  <p>
+    <strong>Donated Amount:</strong>
+    <% @cur_donation = Donation.find(:first, :conditions => ['account_id=? and campaign_id=?', @donor.account.id, @donor.campaign_id])%>
+    <%=h real_currency(@cur_donation.donation) %>
+  </p>
+  <% if current_user and current_user.has_role?('admin')%>
+    <p>
+      <%= link_to "Edit", edit_donor_path(@donor) %> |
+      <%= link_to "Destroy", @donor, :confirm => 'Are you sure?', :method => :delete %>
+      <%#= link_to "View All", donors_path %>
+    </p>
+  <% end %>
+</div>
